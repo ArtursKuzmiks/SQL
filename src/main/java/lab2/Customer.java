@@ -16,15 +16,15 @@ class Customer {
 
     Customer intCustomer(String name, String surname, Date date,
                          float cost, float paid) {
-        Customer cust = new Customer();
+        Customer customer = new Customer();
 
-        cust.name = name;
-        cust.surname = surname;
-        cust.date = date;
-        cust.cost = cost;
-        cust.paid = paid;
+        customer.name = name;
+        customer.surname = surname;
+        customer.date = date;
+        customer.cost = cost;
+        customer.paid = paid;
 
-        return cust;
+        return customer;
 
     }
 
