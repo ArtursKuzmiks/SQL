@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact name="111repzip">
+    <output-path>$USER_HOME$/Desktop/</output-path>
+    <root id="root">
+      <element id="archive" name="archive.zip" />
+    </root>
+  </artifact>
+</component>
