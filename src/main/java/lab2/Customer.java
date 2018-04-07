@@ -19,17 +19,13 @@ class Customer {
     private float paid;
     private BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
-    Customer intCustomer(String name, String surname, Date date,
-                         float cost, float paid) {
-        Customer cust = new Customer();
-
-        cust.name = name;
-        cust.surname = surname;
-        cust.date = date;
-        cust.cost = cost;
-        cust.paid = paid;
-
-        return cust;
+    Customer(String name, String surname, Date date,
+             float cost, float paid){
+        this.name = name;
+        this.surname = surname;
+        this.date = date;
+        this.cost = cost;
+        this.paid = paid;
 
     }
 
@@ -103,8 +99,8 @@ class Customer {
             float paid = Float.parseFloat(br.readLine());
 
 
-            sqlite.insertdata(cust.size() + 1, name, surname, date, cost, paid);
-            cust.add(new Customer().intCustomer(name, surname, data, cost, paid));
+            sqlite.insertData(cust.size() + 1, name, surname, date, cost, paid);
+            cust.add(new Customer(name, surname, data, cost, paid));
 
 
         } catch (IllegalArgumentException e) {
@@ -118,7 +114,6 @@ class Customer {
         final String ANSI_RESET = "\u001B[0m";
 
         SqLite_DB sqlite = new SqLite_DB();
-        Customer customer = new Customer();
 
         boolean found = false;
         String surname;
@@ -133,7 +128,7 @@ class Customer {
 
         }
 
-        if (found && !customer.isOne(cust, i)) {
+        if (found && !isOne(cust, i)) {
             System.out.println("Pietrukst datu!");
             System.out.print("Ievadiet pasutitaja Vardu: ");
             String name = br.readLine();
@@ -156,7 +151,7 @@ class Customer {
                     "Name", "Surname", "Date", "Cost", "Paid");
             System.out.printf("%-15s\t%-15s\t%-15s\t%-5s\t%s\n",
                     "-------", "--------", "----------", "-----", "-----");
-            customer.printCustomCustomer(cust, i);
+            printCustomCustomer(cust, i);
             System.out.println();
 
             try {
@@ -215,7 +210,7 @@ class Customer {
                 }
                 SimpleDateFormat sim = new SimpleDateFormat("yyyy-MM-dd");
 
-                sqlite.insertdata(i + 1, cust.get(i).getName(), cust.get(i).getSurname(),
+                sqlite.insertData(i + 1, cust.get(i).getName(), cust.get(i).getSurname(),
                         sim.format(cust.get(i).getDate()), cust.get(i).getCost(), cust.get(i).getPaid());
 
             } catch (IllegalArgumentException e) {
@@ -280,7 +275,6 @@ class Customer {
     }*/
 
     void allDebtors(ArrayList<Customer> cust) {
-        Customer customer = new Customer();
 
         System.out.printf("%-15s\t%-15s\t%-15s\t%-5s\t%s\n",
                 "Name", "Surname", "Date", "Cost", "Paid");
@@ -288,7 +282,7 @@ class Customer {
                 "-------", "--------", "----------", "-----", "-----");
         for (int i = 0; i < cust.size(); i++) {
             if (cust.get(i).getCost() > cust.get(i).getPaid())
-                customer.printCustomCustomer(cust, i);
+                printCustomCustomer(cust, i);
         }
     }
 

@@ -44,7 +44,7 @@ class SqLite_DB {
                     float cost = rs.getFloat("cost");
                     float paid = rs.getFloat("payd");
 
-                    customers.add(new Customer().intCustomer(name, surname, date, cost, paid));
+                    customers.add(new Customer(name, surname, date, cost, paid));
 
                 }
             } else {
@@ -63,7 +63,7 @@ class SqLite_DB {
         return customers;
     }
 
-    void insertdata(Integer id, String name, String surname, String date, float cost, float paid) {
+    void insertData(Integer id, String name, String surname, String date, float cost, float paid) {
 
         final String INSERT_NEW = "INSERT OR REPLACE INTO md_2DB (id,Name,Surname,orderDate," +
                 "cost,payd) VALUES ('" + id + "','" + name + "','" + surname + "','" + date + "'," +
