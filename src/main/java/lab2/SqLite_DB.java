@@ -65,7 +65,7 @@ class SqLite_DB {
 
     void insertData(Integer id, String name, String surname, String date, float cost, float paid) {
 
-        final String INSERT_NEW = "INSERT OR REPLACE INTO md_2DB (id,Name,Surname,orderDate," +
+        final String INSERT_NEW = "INSERT INTO md_2DB (id,Name,Surname,orderDate," +
                 "cost,payd) VALUES ('" + id + "','" + name + "','" + surname + "','" + date + "'," +
                 "'" + cost + "','" + paid + "')";
 
@@ -80,6 +80,25 @@ class SqLite_DB {
         }
 
     }
+
+    void dataFix(Integer id, String name, String surname, String date, float cost, float paid) {
+
+        final String INSERT_NEW = "REPLACE INTO md_2DB (id,Name,Surname,orderDate," +
+                "cost,payd) VALUES ('" + id + "','" + name + "','" + surname + "','" + date + "'," +
+                "'" + cost + "','" + paid + "')";
+
+        try {
+
+            stmt = con.createStatement();
+            stmt.execute(INSERT_NEW);
+            stmt.close();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+    }
+
 
     /*public ArrayList<Customer> sortDataSurname(ArrayList<Customer> cust) {
         int count=0;

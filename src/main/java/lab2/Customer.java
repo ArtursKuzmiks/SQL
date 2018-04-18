@@ -19,6 +19,9 @@ class Customer {
     private float paid;
     private BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
+    Customer(){
+    }
+
     Customer(String name, String surname, Date date,
              float cost, float paid){
         this.name = name;
@@ -210,7 +213,7 @@ class Customer {
                 }
                 SimpleDateFormat sim = new SimpleDateFormat("yyyy-MM-dd");
 
-                sqlite.insertData(i + 1, cust.get(i).getName(), cust.get(i).getSurname(),
+                sqlite.dataFix(i + 1, cust.get(i).getName(), cust.get(i).getSurname(),
                         sim.format(cust.get(i).getDate()), cust.get(i).getCost(), cust.get(i).getPaid());
 
             } catch (IllegalArgumentException e) {
@@ -294,43 +297,43 @@ class Customer {
         System.out.printf("Visu pasutijumu cenu summa: %.2f\n", summ);
     }
 
-    String getName() {
+    private String getName() {
         return name;
     }
 
-    String getSurname() {
+    private String getSurname() {
         return surname;
     }
 
-    Date getDate() {
+    private Date getDate() {
         return date;
     }
 
-    float getCost() {
+    private float getCost() {
         return cost;
     }
 
-    float getPaid() {
+    private float getPaid() {
         return paid;
     }
 
-    void setName(String name) {
+    private void setName(String name) {
         this.name = name;
     }
 
-    void setSurname(String surname) {
+    private void setSurname(String surname) {
         this.surname = surname;
     }
 
-    void setDate(Date date) {
+    private void setDate(Date date) {
         this.date = date;
     }
 
-    void setCost(float cost) {
+    private void setCost(float cost) {
         this.cost = cost;
     }
 
-    void setPaid(float paid) {
+    private void setPaid(float paid) {
         this.paid = paid;
     }
 
