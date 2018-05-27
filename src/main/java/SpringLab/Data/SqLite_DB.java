@@ -1,6 +1,6 @@
-package SpringLab2.Data;
+package SpringLab.Data;
 
-import SpringLab2.SqLiteInterface;
+import SpringLab.SqLiteInterface;
 import org.springframework.stereotype.Component;
 
 import java.io.File;

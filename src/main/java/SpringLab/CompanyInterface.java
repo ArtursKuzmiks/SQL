@@ -1,7 +1,7 @@
-package SpringLab2;
+package SpringLab;
 
 
-import SpringLab2.Data.Customer;
+import SpringLab.Data.Customer;
 
 import java.io.BufferedReader;
 import java.io.IOException;

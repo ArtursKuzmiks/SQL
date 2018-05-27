@@ -1,6 +1,6 @@
-package SpringLab2;
+package SpringLab;
 
-import SpringLab2.Data.Customer;
+import SpringLab.Data.Customer;
 
 import java.util.ArrayList;
 

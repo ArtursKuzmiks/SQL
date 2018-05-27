@@ -1,6 +1,6 @@
-package SpringLab2.Data;
+package SpringLab.Data;
 
-import SpringLab2.CompanyInterface;
+import SpringLab.CompanyInterface;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
