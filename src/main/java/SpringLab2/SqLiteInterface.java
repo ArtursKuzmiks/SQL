@@ -12,9 +12,9 @@ public interface SqLiteInterface {
 
     ArrayList<Customer> getData();
 
-    void insertData(Integer id, String name, String surname, String date, float cost, float paid);
+    void insertData(int id, Customer customer);
 
-    void dataFix(Integer id, String name, String surname, String date, float cost, float paid);
+    void dataFix(int id, Customer customer);
 
     void remove(String deleteSurname, String deleteName);
 }

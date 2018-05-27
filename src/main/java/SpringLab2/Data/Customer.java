@@ -119,7 +119,6 @@ public class Customer implements CompanyInterface {
             String surname = format(reader.readLine());
 
             System.out.print("Date(yyyy-MM-dd):");
-            String date = null;
 
             try {
 
@@ -130,7 +129,6 @@ public class Customer implements CompanyInterface {
                         System.out.println("Mums nav laika masinas :)");
                         System.out.print("Date(yyyy-MM-dd):");
                     } else {
-                        date = new SimpleDateFormat("yyyy-MM-dd").format(data);
                         end = true;
                     }
                 }
@@ -145,9 +143,8 @@ public class Customer implements CompanyInterface {
             System.out.print("Payd: ");
             float paid = Float.parseFloat(reader.readLine());
 
-
-            sqLite_db.insertData(customers.size() + 1, name, surname, date, cost, paid);
             customers.add(new Customer(name, surname, data, cost, paid));
+            sqLite_db.insertData(customers.size(), customers.get(customers.size()-1));
 
 
         } catch (IllegalArgumentException e) {
@@ -222,8 +219,7 @@ public class Customer implements CompanyInterface {
                 }
                 SimpleDateFormat sim = new SimpleDateFormat("yyyy-MM-dd");
 
-                sqLite_db.dataFix(i + 1, customers.get(i).getName(), customers.get(i).getSurname(),
-                        sim.format(customers.get(i).getDate()), customers.get(i).getCost(), customers.get(i).getPaid());
+                sqLite_db.dataFix(i + 1, customers.get(i));
 
             } catch (IllegalArgumentException e) {
                 System.out.println("input error");

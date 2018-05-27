@@ -5,6 +5,7 @@ import org.springframework.stereotype.Component;
 
 import java.io.File;
 import java.sql.*;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 /**
@@ -15,13 +16,14 @@ import java.util.ArrayList;
 public class SqLite_DB implements SqLiteInterface {
 
     private Connection con;
-    private Statement stmt;
 
 
     SqLite_DB() {
 
         try {
-            File sqlDBFile = new File("md2_db.db");
+
+            File sqlDBFile = new File(new File(".").getAbsolutePath() +
+                    "/src/main/resources/md2_db.db");
             final String driver = "org.sqlite.JDBC";
             Class.forName(driver);
             final String db_url = "jdbc:sqlite:" + sqlDBFile.getAbsolutePath();
@@ -42,7 +44,7 @@ public class SqLite_DB implements SqLiteInterface {
 
         try {
 
-            stmt = con.createStatement();
+            Statement stmt = con.createStatement();
             ResultSet rs = stmt.executeQuery(sqlQuery);
 
             if (rs.isBeforeFirst()) {
@@ -74,17 +76,25 @@ public class SqLite_DB implements SqLiteInterface {
     }
 
     @Override
-    public void insertData(Integer id, String name, String surname, String date, float cost, float paid) {
+    public void insertData(int id, Customer customer) {
+        SimpleDateFormat sim = new SimpleDateFormat("yyyy-MM-dd");
 
         final String INSERT_NEW = "INSERT INTO md_2DB (id,Name,Surname,orderDate," +
-                "cost,payd) VALUES ('" + id + "','" + name + "','" + surname + "','" + date + "'," +
-                "'" + cost + "','" + paid + "')";
+                "cost,payd) VALUES (?,?,?,?,?,?)";
 
         try {
 
-            stmt = con.createStatement();
-            stmt.execute(INSERT_NEW);
-            stmt.close();
+            PreparedStatement pst = con.prepareStatement(INSERT_NEW);
+
+            pst.setString(1, String.valueOf(id));
+            pst.setString(2, customer.getName());
+            pst.setString(3, customer.getSurname());
+            pst.setString(4, sim.format(customer.getDate()));
+            pst.setString(5, String.valueOf(customer.getCost()));
+            pst.setString(6, String.valueOf(customer.getPaid()));
+
+            pst.executeUpdate();
+            pst.close();
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -93,17 +103,24 @@ public class SqLite_DB implements SqLiteInterface {
     }
 
     @Override
-    public void dataFix(Integer id, String name, String surname, String date, float cost, float paid) {
+    public void dataFix(int id, Customer customer) {
+        SimpleDateFormat sim = new SimpleDateFormat("yyyy-MM-dd");
 
-        final String INSERT_NEW = "REPLACE INTO md_2DB (id,Name,Surname,orderDate," +
-                "cost,payd) VALUES ('" + id + "','" + name + "','" + surname + "','" + date + "'," +
-                "'" + cost + "','" + paid + "')";
+        final String REPLACE = "REPLACE INTO md_2DB (id,Name,Surname,orderDate," +
+                "cost,payd) VALUES(?,?,?,?,?,?) ";
 
         try {
+            PreparedStatement pst = con.prepareStatement(REPLACE);
 
-            stmt = con.createStatement();
-            stmt.execute(INSERT_NEW);
-            stmt.close();
+            pst.setString(1, String.valueOf(id));
+            pst.setString(2, customer.getName());
+            pst.setString(3, customer.getSurname());
+            pst.setString(4, sim.format(customer.getDate()));
+            pst.setString(5, String.valueOf(customer.getCost()));
+            pst.setString(6, String.valueOf(customer.getPaid()));
+
+            pst.executeUpdate();
+            pst.close();
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -117,11 +134,14 @@ public class SqLite_DB implements SqLiteInterface {
         final String DELETE_ROW = "DELETE FROM md_2DB WHERE NAME = ? AND Surname = ?";
 
         try {
-            PreparedStatement prst = con.prepareStatement(DELETE_ROW);
-            prst.setString(1, deleteName);
-            prst.setString(2, deleteSurname);
-            prst.executeUpdate();
-            prst.close();
+            PreparedStatement pst = con.prepareStatement(DELETE_ROW);
+
+            pst.setString(1, deleteName);
+            pst.setString(2, deleteSurname);
+
+            pst.executeUpdate();
+            pst.close();
+
         } catch (SQLException e) {
             e.printStackTrace();
         }
